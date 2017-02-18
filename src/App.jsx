@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Video from './components/Video';
+
 class App extends Component {
   componentWillMount() {
 
@@ -8,7 +10,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <span>video</span>
+        <Video
+          src={`${process.env.PUBLIC_URL}/oceans.mp4`}
+        />
       </div>
     );
   }
