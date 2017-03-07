@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import './controls.css';
 
-const Controls = ({ seekRanges, videoPosition, onChange, onNextBtnClick, currentSeekRangeIndex }) => (
+const Controls = ({ seekRanges, videoPosition, onChange, onNextBtnClick, currentSeekRangeIndex, onMouseDown, onMouseUp }) => (
   <div className="video-controls">
     <button type="button" className="next-range-btn" onClick={onNextBtnClick}>></button>
 
@@ -35,6 +35,8 @@ const Controls = ({ seekRanges, videoPosition, onChange, onNextBtnClick, current
           step={1}
           value={videoPosition}
           onChange={e => onChange(e.target.value / 100)}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
         />
       </div>
     </div>

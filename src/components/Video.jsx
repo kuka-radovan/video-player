@@ -20,7 +20,7 @@ class Video extends React.Component {
   }
 
   componentDidMount() {
-    this.video.addEventListener('timeupdate', this.updateSeekPosition);
+    this.video.addEventListener('timeupdate', e => this.updateSeekPosition());
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -35,22 +35,20 @@ class Video extends React.Component {
   }
 
   componentWillUnmount() {
-    this.video.removeEventListener('timeupdate', this.updateSeekPosition);
+    this.video.removeEventListener('timeupdate', e => this.updateSeekPosition());
   }
 
-  updateSeekPosition() {
+  updateSeekPosition(value) {
+    const val = value || this.video.currentTime;
     this.setState({
-      currentSeekPosition: (100 / this.video.duration) * this.video.currentTime
+      currentSeekPosition: (100 / this.video.duration) * val
     });
   }
 
   updateVideoPosition(value) {
     const time = this.video.duration * value;
 
-    this.setState({
-      currentSeekPosition: time
-    });
-
+    this.updateSeekPosition(time);
     this.video.currentTime = time;
   }
 
@@ -113,6 +111,8 @@ class Video extends React.Component {
           videoPosition={this.state.currentSeekPosition}
           onNextBtnClick={this.goToNextRange}
           onChange={this.goToNearestRange}
+          onMouseDown={() => this.video.pause()}
+          onMouseUp={() => this.video.play()}
           seekRanges={this.props.seekRanges}
           currentSeekRangeIndex={this.currentSeekRangeIndex}
         />
